@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="TrackEditor.qml">qml/TrackEditor.qml</file>
+        <file alias="Tile.qml">qml/Tile.qml</file>
+    </qresource>
+</RCC>
