@@ -360,6 +360,9 @@ ApplicationWindow {
                     model: (tileGrid.width * tileGrid.height)
                            / (gridOperator.tileSide * gridOperator.tileSide)
                     delegate: dropArea
+                    // FIXME: childAt(0,0) for Loader returns this item
+                    // unless made invisible
+                    visible: false
                 }
             }
 
