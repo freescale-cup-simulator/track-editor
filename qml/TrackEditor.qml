@@ -98,7 +98,7 @@ ApplicationWindow {
             case "Tile_Start": tile = startTile.createObject(v); break
             case "Tile_Turn": tile = turnTile.createObject(v); break
             case "Tile_Saw": tile = sawTile.createObject(v); break
-            case "Tile_Trampoline": tile = trampolineTile.createObject(v); break
+            case "Tile_Hill": tile = hillTile.createObject(v); break
             case "Tile_Teeth": tile = teethTile.createObject(v); break
             case "Tile_Crossing": tile = crossingTile.createObject(v); break
             }
@@ -183,11 +183,11 @@ ApplicationWindow {
     }
 
     Component {
-        id: trampolineTile
+        id: hillTile
         Tile {
             width: gridOperator.tileSide
             height: gridOperator.tileSide
-            onCreateCopy: trampolineTile.createObject(target)
+            onCreateCopy: hillTile.createObject(target)
             objectName: "Tile_Trampoline"
 
             Rectangle {
@@ -300,7 +300,7 @@ ApplicationWindow {
         Loader { sourceComponent: lineTile }
         Loader { sourceComponent: startTile }
         Loader { sourceComponent: turnTile }
-        Loader { sourceComponent: trampolineTile }
+        Loader { sourceComponent: hillTile }
         Loader { sourceComponent: teethTile }
         Loader { sourceComponent: sawTile }
         Loader { sourceComponent: crossingTile }

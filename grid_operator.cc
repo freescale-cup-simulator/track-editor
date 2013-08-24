@@ -5,7 +5,7 @@ QMap<QString, tl::Tile::Type> GridOperator::typeStringMap
     { "Tile_Start",      tl::Tile::Start },
     { "Tile_Turn",       tl::Tile::Turn },
     { "Tile_Saw",        tl::Tile::Saw },
-    { "Tile_Trampoline", tl::Tile::Trampoline },
+    { "Tile_Hill",       tl::Tile::Hill },
     { "Tile_Teeth",      tl::Tile::Teeth },
     { "Tile_Crossing",   tl::Tile::Crossing}
   };
