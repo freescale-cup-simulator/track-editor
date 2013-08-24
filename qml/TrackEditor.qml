@@ -188,7 +188,7 @@ ApplicationWindow {
             width: gridOperator.tileSide
             height: gridOperator.tileSide
             onCreateCopy: hillTile.createObject(target)
-            objectName: "Tile_Trampoline"
+            objectName: "Tile_Hill"
 
             Rectangle {
                 anchors.fill: parent
