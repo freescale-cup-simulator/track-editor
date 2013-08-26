@@ -78,7 +78,7 @@ void GridOperator::saveGrid(const QUrl & url)
             tile = dropArea->childItems().last();
             m.addTile(tl::Tile(stringToType(tile->objectName()),
                                dropArea->x() / m_tile_side,
-                               dropArea->y() / m_tile_side,
+                               m_grid_width - 1 - dropArea->y() / m_tile_side,
                                static_cast<int>(tile->rotation()) % 360));
         }
     }
@@ -96,7 +96,8 @@ void GridOperator::loadGrid(const QUrl & url)
     m_grid_width = m.width();
     gridDimensionChanged();
     for (const tl::Tile & t : m.tiles())
-        placeTile(t.x(), t.y(), t.rotation(), typeToString(t.type()));
+        placeTile(t.x(), m_grid_width - t.y() - 1, t.rotation(),
+                  typeToString(t.type()));
 }
 
 tl::Tile::Type GridOperator::stringToType(const QString & string)
