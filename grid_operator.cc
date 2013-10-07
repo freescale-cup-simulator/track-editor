@@ -1,15 +1,5 @@
 #include <grid_operator.h>
 
-QMap<QString, tl::Tile::Type> GridOperator::typeStringMap
-= { { "Tile_Line",       tl::Tile::Line },
-    { "Tile_Start",      tl::Tile::Start },
-    { "Tile_Turn",       tl::Tile::Turn },
-    { "Tile_Saw",        tl::Tile::Saw },
-    { "Tile_Hill",       tl::Tile::Hill },
-    { "Tile_Teeth",      tl::Tile::Teeth },
-    { "Tile_Crossing",   tl::Tile::Crossing}
-  };
-
 GridOperator::GridOperator(QObject *parent)
     : QObject(parent)
     , m_grid_width(8)
@@ -17,6 +7,14 @@ GridOperator::GridOperator(QObject *parent)
     , m_tile_side(100)
     , m_grid(nullptr)
 {
+    // FIXME: static variable?
+	typeStringMap.insert("Tile_Line", tl::Tile::Line);
+	typeStringMap.insert("Tile_Start", tl::Tile::Start);
+	typeStringMap.insert("Tile_Turn", tl::Tile::Turn);
+	typeStringMap.insert("Tile_Saw", tl::Tile::Saw);
+	typeStringMap.insert("Tile_Hill", tl::Tile::Hill);
+	typeStringMap.insert("Tile_Teeth", tl::Tile::Teeth);
+	typeStringMap.insert("Tile_Crossing", tl::Tile::Crossing);
 }
 
 int GridOperator::gridWidth()

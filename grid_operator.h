@@ -35,7 +35,7 @@ private:
     tl::Tile::Type stringToType(const QString & string);
     QString typeToString(tl::Tile::Type type);
 
-    static QMap<QString, tl::Tile::Type> typeStringMap;
+    QMap<QString, tl::Tile::Type> typeStringMap;
     int m_grid_width;
     int m_grid_height;
     int m_tile_side;

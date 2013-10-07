@@ -32,16 +32,21 @@ find_package(Qt5Quick REQUIRED)
 add_definitions(${Qt5Quick_DEFINITIONS})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5Quick_EXECUTABLE_COMPILE_FLAGS}")
 
-if(CMAKE_COMPILER_IS_GNUCXX)
+if(UNIX)
   set(CMAKE_CXX_FLAGS_DEBUG
       "${CMAKE_CXX_FLAGS} -std=c++11 -O2 -ggdb3 -Wall -Wextra -pedantic")
   set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -std=c++11 -O2")
+elseif(MSVC)
+  message(STATUS "Warning: building on Windows is experimental")
+  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} /Od")
+  set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} /O2")
 endif()
 
 add_subdirectory(libtrack EXCLUDE_FROM_ALL)
 
 include_directories(${Qt5Quick_INCLUDE_DIRS}
                     libtrack
+                    ${CMAKE_BINARY_DIR}/libtrack
 )
 
 set(QML_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/")
@@ -51,6 +56,14 @@ qt5_add_resources(resources ${reslists})
 
 message(STATUS "Build type is: ${CMAKE_BUILD_TYPE}")
 
-add_executable(track-editor ${sources} ${moc_cpp} ${reslists} ${resources})
-qt5_use_modules(track-editor Quick)
-target_link_libraries(track-editor track)
+if(MSVC)
+  add_executable(track-editor WIN32 ${sources} ${moc_cpp} ${reslists} ${resources})
+  set_target_properties(track-editor PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS")
+  set_target_properties(track-editor PROPERTIES LINK_FLAGS_DEBUG "/SUBSYSTEM:CONSOLE")
+  qt5_use_modules(track-editor Quick)
+  target_link_libraries(track-editor track)
+else()
+  add_executable(track-editor ${sources} ${moc_cpp} ${reslists} ${resources})
+  qt5_use_modules(track-editor Quick)
+  target_link_libraries(track-editor track)
+endif()
