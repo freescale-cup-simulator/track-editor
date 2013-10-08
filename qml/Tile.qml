@@ -10,6 +10,13 @@ Rectangle {
 
     signal createCopy(Item target)
 
+    Text {
+        x: 0
+        y: 0
+        z: 2
+        text: "↑"
+    }
+
     MouseArea {
         property point dragStartPoint
 
