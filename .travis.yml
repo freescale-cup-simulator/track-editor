@@ -3,10 +3,12 @@ compiler:
   - gcc
   - clang
 before_install:
-  - sudo apt-get update
+  - sudo add-apt-repository --yes ppa:beineri/opt-qt511
+  - sudo apt-get update -qq
 install:
-  - sudo apt-get install cmake
+  - sudo apt-get install cmake qt51base qt51quickcontrols
 before_script:
+  - source /opt/qt51/bin/qt51-env.sh
   - cmake .
 script: make
 
