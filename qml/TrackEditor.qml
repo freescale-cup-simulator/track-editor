@@ -7,13 +7,16 @@ import QtQuick.Dialogs 1.0
 import TrackEditor 1.0
 
 ApplicationWindow {
+    id: rootWindow
     readonly property int lineWidth: 0.04 * gridOperator.tileSide
     property url currentFile: fileDialog.fileUrl
+    readonly property string defaultTitle: "Track Editor"
 
     width: 720
     height: 650
     visible: true
     color: palette.window
+    title: defaultTitle + " - " + gridOperator.currentFileName
 
     menuBar: MenuBar {
         Menu {
@@ -70,12 +73,17 @@ ApplicationWindow {
 
         id: fileDialog
         title: "Please choose a file"
-        onAccepted: save ? gridOperator.saveGrid(fileDialog.fileUrl)
-                         : gridOperator.loadGrid(fileDialog.fileUrl)
+        onAccepted: {
+            if (save)
+                gridOperator.saveGrid(fileDialog.fileUrl)
+            else
+                gridOperator.loadGrid(fileDialog.fileUrl)
+        }
         selectMultiple: false
         selectExisting: save ? false : true
         selectFolder: false
         nameFilters: "XML Files(*.xml)"
+
         function open(v) {
             save = v
             visible = true

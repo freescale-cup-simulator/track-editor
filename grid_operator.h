@@ -23,6 +23,7 @@ class GridOperator : public QObject
                NOTIFY gridDimensionChanged)
     Q_PROPERTY(int tileSide READ tileSide CONSTANT)
     Q_PROPERTY(QQuickItem * grid READ grid WRITE setGrid NOTIFY gridChanged)
+    Q_PROPERTY(QString currentFileName READ currentFileName NOTIFY currentFileNameChanged)
 public:
     GridOperator(QObject * parent = nullptr);
 
@@ -33,6 +34,7 @@ public:
     int tileSide();
     QQuickItem *grid();
     void setGrid(QQuickItem * grid);
+    QString currentFileName();
 private:
     tl::Tile::Type stringToType(const QString & string);
     QString typeToString(tl::Tile::Type type);
@@ -42,6 +44,7 @@ private:
     int m_grid_height;
     int m_tile_side;
     QQuickItem * m_grid;
+    QString m_currentFileName;
 public slots:
     void saveGrid(const QUrl & url);
     void loadGrid(const QUrl & url);
@@ -49,6 +52,7 @@ signals:
     void placeTile(int x, int y, int rotation, const QString & type);
     void gridDimensionChanged();
     void gridChanged();
+    void currentFileNameChanged();
 };
 
 #endif

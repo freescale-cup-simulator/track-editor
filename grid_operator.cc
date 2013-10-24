@@ -55,6 +55,11 @@ void GridOperator::setGrid(QQuickItem *grid)
     gridChanged();
 }
 
+QString GridOperator::currentFileName()
+{
+    return m_currentFileName;
+}
+
 void GridOperator::saveGrid(const QUrl & url)
 {
     Q_ASSERT(m_grid);
@@ -68,6 +73,9 @@ void GridOperator::saveGrid(const QUrl & url)
     // use did not specify .xml extension
     if (path_info.suffix() != "xml")
       path += ".xml";
+
+    m_currentFileName = path;
+    currentFileNameChanged();
 
     for (QQuickItem * dropArea : m_grid->childItems())
     {
@@ -102,6 +110,8 @@ void GridOperator::loadGrid(const QUrl & url)
     for (const tl::Tile & t : m.tiles())
         placeTile(t.x(), m_grid_width - t.y() - 1, t.rotation(),
                   typeToString(t.type()));
+    m_currentFileName = url.toLocalFile();
+    currentFileNameChanged();
 }
 
 tl::Tile::Type GridOperator::stringToType(const QString & string)
