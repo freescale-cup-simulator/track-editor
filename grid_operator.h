@@ -6,6 +6,8 @@
 #include <QQuickItem>
 #include <QUrl>
 #include <QtDebug>
+#include <QFileInfo>
+#include <QString>
 
 #include <track_model.h>
 #include <track_io.h>

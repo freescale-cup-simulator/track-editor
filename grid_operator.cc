@@ -62,6 +62,12 @@ void GridOperator::saveGrid(const QUrl & url)
     tl::TrackModel m (m_grid_width, m_grid_height);
     QVariant p;
     QQuickItem * tile;
+    QString path = url.toLocalFile();
+    QFileInfo path_info (path);
+
+    // use did not specify .xml extension
+    if (path_info.suffix() != "xml")
+      path += ".xml";
 
     for (QQuickItem * dropArea : m_grid->childItems())
     {
@@ -80,7 +86,7 @@ void GridOperator::saveGrid(const QUrl & url)
                                static_cast<int>(tile->rotation()) % 360));
         }
     }
-    tl::io::saveTrackToFile(m, url.toLocalFile().toStdString());
+    tl::io::saveTrackToFile(m, path.toStdString());
 }
 
 void GridOperator::loadGrid(const QUrl & url)
