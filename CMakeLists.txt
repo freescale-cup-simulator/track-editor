@@ -33,6 +33,12 @@ include_directories(${Qt5Quick_INCLUDE_DIRS})
 add_definitions(${Qt5Quick_DEFINITIONS})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5Quick_EXECUTABLE_COMPILE_FLAGS}")
 
+
+find_package(Qt5Widgets REQUIRED)
+include_directories(${Qt5Widgets_INCLUDE_DIRS})
+add_definitions(${Qt5Widgets_DEFINITIONS})
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
+
 include(CheckCXXCompilerFlag)
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
@@ -71,8 +77,8 @@ if(MSVC)
   add_executable(track-editor WIN32 ${sources} ${moc_cpp} ${reslists} ${resources})
   set_target_properties(track-editor PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS")
   set_target_properties(track-editor PROPERTIES LINK_FLAGS_DEBUG "/SUBSYSTEM:CONSOLE")
-  target_link_libraries(track-editor track ${Qt5Quick_LIBRARIES})
+  target_link_libraries(track-editor track ${Qt5Quick_LIBRARIES} ${Qt5Widgets_LIBRARIES})
 else()
   add_executable(track-editor ${sources} ${moc_cpp} ${reslists} ${resources})
-  target_link_libraries(track-editor track ${Qt5Quick_LIBRARIES})
+  target_link_libraries(track-editor track ${Qt5Quick_LIBRARIES} ${Qt5Widgets_LIBRARIES})
 endif()
