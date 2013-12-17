@@ -9,7 +9,7 @@ import TrackEditor 1.0
 ApplicationWindow {
     id: rootWindow
     readonly property int lineWidth: 0.04 * gridOperator.tileSide
-    property url currentFile: fileDialog.fileUrl
+    property alias currentFile: fileDialog.fileUrl
     readonly property string defaultTitle: "Track Editor"
 
     width: 720
@@ -35,7 +35,7 @@ ApplicationWindow {
             MenuItem {
                 text: "Save"
                 onTriggered: gridOperator.saveGrid(currentFile)
-                enabled: currentFile
+                enabled: currentFile.toString().length != 0
                 iconName: "document-save"
                 shortcut: "Ctrl+S"
             }
