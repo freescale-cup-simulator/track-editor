@@ -16,7 +16,12 @@ ApplicationWindow {
     height: 650
     visible: true
     color: palette.window
-    title: defaultTitle + " - " + gridOperator.currentFileName
+    title: {
+        if (gridOperator.currentFileName.length == 0)
+            return defaultTitle
+        else
+            return defaultTitle + " - " + gridOperator.currentFileName
+    }
 
     menuBar: MenuBar {
         Menu {
