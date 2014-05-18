@@ -4,18 +4,29 @@ Rectangle {
     id: base
     color: "white"
     z: 1
+    border.color: mouseArea.containsMouse ? palette.highlight : "white"
+    border.width: 2
 
     Drag.active: mouseArea.drag.active
     Drag.hotSpot: Qt.point(width / 2, height / 2)
 
     signal createCopy(Item target)
 
-    Text {
-        x: 0
-        y: 0
-        z: 2
-        text: "↑"
+    Behavior on border.color {
+        PropertyAnimation { duration: 300 }
     }
+
+    // animate tile rotation
+    Behavior on rotation {
+        PropertyAnimation {
+            id: rotationAnimation
+            duration: 400
+            easing.type: Easing.InOutBack
+            easing.overshoot: 1
+        }
+    }
+
+    Text { x: 0; y: 0; z: 2; text: "↑" }
 
     MouseArea {
         property point dragStartPoint
@@ -23,18 +34,17 @@ Rectangle {
         id: mouseArea
         anchors.fill: parent
         acceptedButtons: Qt.LeftButton | Qt.RightButton
+        hoverEnabled: true
         onClicked: {
             if (base.parent.parent.objectName == "tileDisplay")
                 return
 
-            if (mouse.button === Qt.LeftButton)
+            if (mouse.button === Qt.LeftButton && !rotationAnimation.running)
                 base.rotation += 90
-            else
-            {
+            else if (mouse.button === Qt.RightButton) {
                 base.parent.haveTile = false
                 base.destroy()
             }
-
         }
 
         drag.target: base

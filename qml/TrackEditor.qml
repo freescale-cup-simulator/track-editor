@@ -349,14 +349,13 @@ ApplicationWindow {
                     height: gridOperator.tileSide
 
                     onDropped: {
-                        if (haveTile) {
-                            drop.accept(Qt.IgnoreAction)
-                            return
-                        }
-                        if (drop.source.parent.parent === tileDisplay)
-                            drop.accept(Qt.CopyAction)
+                        if (haveTile)
+                            drop.action = Qt.IgnoreAction
+                        else if (drop.source.parent.parent === tileDisplay)
+                            drop.action = Qt.CopyAction
                         else
-                            drop.accept(Qt.MoveAction)
+                            drop.action = Qt.MoveAction
+                        drop.accept()
                     }
 
                     Rectangle {
